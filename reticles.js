@@ -40,7 +40,6 @@ class TargetReticle extends Reticle {
     constructor(x, y, r, rotateAngle, scol, number) {
         super(x, y, r, scol);
         this.number = number;
-        console.log(this.scol);
     }
     shape() {
         push();

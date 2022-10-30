@@ -1,5 +1,5 @@
 class Enemy extends Thing {
-    constructor(x, y, r, hp, scol, fcol) {
+    constructor({ x, y, r, hp, scol, fcol }) {
         super(x, y, r, hp, scol, fcol, 2);
         this.speed = 0.1;
         this.vel.set(random(10, 15) * this.speed, random(10, 15) * this.speed).div(timeStep);
@@ -78,16 +78,19 @@ class Enemy extends Thing {
 
     die() {
         super.die();
+        this.explode();
     }
-}
 
-class SquareEnemy extends Enemy {
-    shape() {
-        rectMode(CENTER);
-        push();
-        translate(this.pos.x, this.pos.y);
-        rotate(this.vel.heading());
-        square(0, 0, this.r * 2);
-        pop();
+    explode(speed = 1) {
+        for (let i = 0; i < 15 * speed; i++) {
+            let angle = random(TWO_PI);
+            let sss_x = sin(angle) * random();
+            let sss_y = cos(angle) * random();
+            sss_x *= map(random(), 0, 1, height / 500, .7 * height / 500) * speed;
+            sss_y *= map(random(), 0, 1, height / 500, .7 * height / 500) * speed;
+            sss_x += this.vel.x * 5;
+            sss_y += this.vel.y * 5;
+            particles.push(new Particle(this.pos.x, this.pos.y, sss_x, sss_y, 40, 4, 1));
+        }
     }
 }
