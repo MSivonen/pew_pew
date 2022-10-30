@@ -13,13 +13,15 @@ class Spot {
         fill(255, 25);
         noStroke();
         let spot = map(this.z, 450, width / 2, 8, 0.1) + this.randSize;
+        //square(w / 2 + this.x, h / 2 + this.y, spot * 10);
         square(w / 2 + this.x, h / 2 + this.y, spot * 10);
+        image(starImage, w / 2 + this.x, h / 2 + this.y, spot * 10, spot * 10);
         this.life++;
         if (this.life > 20) this.life = 20;
     }
 
     update() {
-        let speed = 0.005 + (0.005 * (wave-1));
+        let speed = 0.005 + (0.005 * (wave - 1));
         this.x = map(this.x / this.z, 0, 1, 0, w / 2);
         this.y = map(this.y / this.z, 0, 1, 0, w / 2);
         this.z = this.z - speed;
