@@ -19,6 +19,7 @@ let player,
 function preload() {
     font1 = loadFont('https://raw.githubusercontent.com/MSivonen/pew_pew/main/assets/SpaceGrotesk-Medium.ttf');
     starImage = loadImage("https://raw.githubusercontent.com/MSivonen/pew_pew/main/assets/star.png");
+    sparkImage = loadImage("https://raw.githubusercontent.com/MSivonen/pew_pew/main/assets/spark.png");
 }
 
 function setup() {
