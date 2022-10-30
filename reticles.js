@@ -63,7 +63,7 @@ class TargetReticle extends Reticle {
             pop();
         }
         textSize(12);
-        textFont('Hacker');
+        textFont(font1);
         textAlign(CENTER);
         this.scol.setAlpha(255);
         fill(this.scol);

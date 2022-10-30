@@ -15,7 +15,7 @@ let player,
     canvas;
 
 function preload() {
-    loadFont('Hacker.ttf');
+    font1 = loadFont('https://fonts.googleapis.com/css?family=Coiny');
 }
 
 function setup() {
@@ -34,7 +34,7 @@ function setup() {
         }));
     }
 
-    canvas = createCanvas(w, h, WEBGL);
+    canvas = createCanvas(w, h);
     console.log(canvas)
     canvas.canvas.style.height = "100%";
     canvas.canvas.style.width = "100%";
@@ -46,6 +46,12 @@ function draw() { //Main loop
     updateThings();
     showThings();
     cleanup();
+
+    textSize(12);
+    textFont(font1);
+    textAlign(CENTER);
+    fill(255);
+    text("DAFUQ123", 100, 100);
 }
 
 
@@ -107,7 +113,7 @@ function updateThings() {
 function showThings() {
     noCursor();
     push();
-    //translate(w / 2, h / 2);
+    translate(w / 2, h / 2);
     player.show();
     bullets.forEach(a => a.show());
     enemies.forEach(e => {
