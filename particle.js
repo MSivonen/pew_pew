@@ -27,8 +27,12 @@ class Particle {
         fill(this.color);
         noStroke();
         imageMode(CENTER);
+        tint(255, 255, 255, 100);
+        push();
+        rotate(random(TWO_PI));
         image(sparkImage, this.pos.x, this.pos.y, this.r - this.r / 4 * this.lifee, this.r - this.r / 4 * this.lifee);
         // circle(this.pos.x, this.pos.y, this.r - this.r / 4 * this.lifee);
+        pop();
     }
 
     update() {
