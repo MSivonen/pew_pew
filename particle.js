@@ -26,7 +26,9 @@ class Particle {
         //context.fillStyle = "rgba(" + color[0] + "," + color[1] + "," + color[2] + "," + a + ")";
         fill(this.color);
         noStroke();
-        circle(this.pos.x, this.pos.y, this.r - this.r / 4 * this.lifee);
+        imageMode(CENTER);
+        image(sparkImage, this.pos.x, this.pos.y, this.r - this.r / 4 * this.lifee, this.r - this.r / 4 * this.lifee);
+        // circle(this.pos.x, this.pos.y, this.r - this.r / 4 * this.lifee);
     }
 
     update() {
