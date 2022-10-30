@@ -1,6 +1,5 @@
 class Thing {
-    constructor(obj = { x, y, r, hp, scol, fcol, strokeWeight: 1 }) {
-        Object.keys(obj).forEach(k => this[k] = obj[k]);
+    constructor(x, y, r, hp, scol, fcol, strokeWeight_ = 1) {
         this.pos = createVector(x, y);
         this.acc = createVector(0, 0);
         this.vel = createVector(0, 0);

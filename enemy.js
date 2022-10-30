@@ -1,11 +1,12 @@
 class Enemy extends Thing {
     constructor(x, y, r, hp, scol, fcol) {
-        super(x, y, r, hp, scol, fcol,2);
+        super(x, y, r, hp, scol, fcol, 2);
         this.speed = 0.1;
         this.vel.set(random(10, 15) * this.speed, random(10, 15) * this.speed).div(timeStep);
         this.directionToPlayer = p5.Vector.sub(this.pos, player.pos);
         this.vel.setHeading(this.directionToPlayer.heading() + HALF_PI);
-        this.friction = 1 - 0.001 / timeStep;
+        if (random() < .5) this.vel.mult(-1);
+        this.friction = 1 - wave * 0.0001 / timeStep;
         this.maxhp = hp;
         this.distToPlayer = p5.Vector.dist(player.pos, this.pos);
         this.targeted = false;
@@ -24,24 +25,26 @@ class Enemy extends Thing {
         this.vel.add(this.acc).mult(this.friction);
     }
 
-    futurePosition(bulletSpeed = 3, barrelLength, iter = 10, mult = 10) {
+    futurePosition({ gun, iter = 15, mult = 10 }) {
+
         let best = [-1, 1e99];
         mult *= timeStep; //step distance of aim points
         let futureVel = createVector(this.vel.x, this.vel.y).mult(mult);
         let futurePos = createVector(this.pos.x, this.pos.y);
         let futureAcc = createVector(0, 0);
-        let futurePlayerDirection = p5.Vector.sub(player.pos, futurePos).normalize();
+        let futurePlayerDirection;
+
         for (let i = 0; i < iter; i++) {
             futurePlayerDirection = p5.Vector.sub(player.pos, this.pos).normalize().div(timeStep);
-            futureAcc.add(futurePlayerDirection.mult((this.speed * mult) ** 2)).div(timeStep);
+            futureAcc.add(futurePlayerDirection.mult((this.speed * mult) ** 2 / timeStep));
             futureVel.add(futureAcc).mult(this.friction);
             futurePos.add(p5.Vector.mult(futureVel, gameSpeed));
             futureAcc.set(0, 0);
 
             const distToCurrentPos = p5.Vector.dist(this.pos, futurePos);
-            const distToPlayer = p5.Vector.dist(player.pos, futurePos) - barrelLength;
+            const distToPlayer = p5.Vector.dist(gun.pos, futurePos) - gun.barrelLength;
             const timeToPos = distToCurrentPos / (this.vel.mag());//mult * i / 1000;
-            const timeToHit = distToPlayer / (bulletSpeed / timeStep);
+            const timeToHit = distToPlayer / ((gun.bulletSpeed * gun.upgrades.bulletSpeed) / timeStep);
             const currentGuess = Math.abs(timeToPos - timeToHit);
             if (currentGuess < best[1]) {
                 best[0] = futurePos.copy();
@@ -59,11 +62,13 @@ class Enemy extends Thing {
         if (debug) { //show aim line to best
             push();
             translate(w / 2, h / 2);
-            const result = Math.atan2(best[0].y - player.pos.y, best[0].x - player.pos.x);
+            const result = Math.atan2(best[0].y - gun.pos.y, best[0].x - gun.pos.x);
             stroke(255, 255, 0);
-            line(player.pos.x, player.pos.y, player.pos.x + cos(result) * 400, player.pos.y + sin(result) * 400);
+            line(gun.pos.x, gun.pos.y, gun.pos.x + cos(result) * 400, gun.pos.y + sin(result) * 400);
             pop();
         }
+        // best[0].x -= gun.pos.x;
+        // best[0].y -= gun.pos.y;
         return best[0];
     }
 
@@ -78,10 +83,11 @@ class Enemy extends Thing {
 
 class SquareEnemy extends Enemy {
     shape() {
+        rectMode(CENTER);
         push();
         translate(this.pos.x, this.pos.y);
         rotate(this.vel.heading());
-        square(0, 0, this.r*2);
+        square(0, 0, this.r * 2);
         pop();
     }
 }
