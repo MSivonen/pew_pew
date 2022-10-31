@@ -13,10 +13,10 @@ class Spot {
         fill(255, 25);
         noStroke();
         let spot = map(this.z, 450, width / 2, 8, 0.1) + this.randSize;
-        //square(w / 2 + this.x, h / 2 + this.y, spot * 10);
-        //square(w / 2 + this.x, h / 2 + this.y, spot * 10);
-        imageMode(CENTER);
-        image(starImage, w / 2 + this.x, h / 2 + this.y, spot * this.r, spot * this.r);
+        square(w / 2 + this.x, h / 2 + this.y, spot * 5);
+        square(w / 2 + this.x, h / 2 + this.y, spot * 5);
+        //imageMode(CENTER);
+        //image(starImage, w / 2 + this.x, h / 2 + this.y, spot * this.r, spot * this.r);
         this.life++;
         if (this.life > 20) this.life = 20;
     }

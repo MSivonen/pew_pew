@@ -17,15 +17,15 @@ let player,
     bgStars = [];
 
 function preload() {
-    font1 = loadFont('https://raw.githubusercontent.com/MSivonen/pew_pew/main/assets/SpaceGrotesk-Medium.ttf');
-    starImage = loadImage("https://raw.githubusercontent.com/MSivonen/pew_pew/main/assets/star.png");
-    sparkImage = loadImage("https://raw.githubusercontent.com/MSivonen/pew_pew/main/assets/spark.png");
+    font1 = loadFont('https://raw.githubusercontent.com/MSivonen/pew_pew/main/assets/fonts/SpaceGrotesk-Medium.ttf');
+    starImage = loadImage("https://raw.githubusercontent.com/MSivonen/pew_pew/main/assets/images/star.png");
+    sparkImage = loadImage("https://raw.githubusercontent.com/MSivonen/pew_pew/main/assets/images/spark.png");
 }
 
 function setup() {
     frameRate(fps);
     mouseCursor = new MouseReticle(0, 0, 30, 0, color(255, 255, 0, 150));
-    player = new Player(0, 0, 40, 300, color(158, 180, 120), color(10, 50, 80));
+    player = new Player(0, 0, 40, 300, color(158, 180, 190), color(20, 30, 50));
 
     // for (let i = 0; i < 4; i++) {
     //     const gundist = 20;
@@ -56,6 +56,7 @@ function setup() {
     canvas.canvas.style.height = "100%";
     canvas.canvas.style.width = "100%";
 
+
     for (let i = 0; i < 200; i++) {
         bgStars.push(new Spot());
     }
@@ -68,11 +69,12 @@ function draw() { //Main loop
     showThings();
     cleanup();
 
-    textSize(12);
+    textSize(24);
     textFont(font1);
-    textAlign(CENTER);
+    textAlign(LEFT);
     fill(255);
-    text("DAFUQ123", 100, 100);
+    text("WAVE: " + wave, 100, 100);
+    text("HP: " + player.hp, 100, 134);
 }
 
 
@@ -107,7 +109,7 @@ function spawnShit() {
     if (enemies.length == 0) {
         if (wave > 0 && wave % 2 == 0 && player.guns.length < 5) {
             const gundist = 20;
-            const i = player.guns.length;
+            const i = player.guns.length - 1;
             player.guns.unshift(new Gun({
                 number: i + 1,
                 upgrades: player.upgrades,
@@ -126,12 +128,12 @@ function spawnShit() {
         for (i = 0; i < (wave + 1) * 3; i++) {
             const a = random(TWO_PI);
             let tempEnemy = new Enemy({
-                x: cos(a) * 300,
-                y: sin(a) * 300,
+                x: cos(a) * 350,
+                y: sin(a) * 350,
                 r: random(5, 15),
                 hp: 1 + Math.floor(1 * wave / 2),
                 scol: color(255, 0, 255),
-                fcol: color(random(255))
+                fcol: color(255)
             });
             tempEnemy.shape = enemyShapes[Object.keys(enemyShapes)[Math.floor(random(Object.keys(enemyShapes).length))]];
             enemies.push(tempEnemy);

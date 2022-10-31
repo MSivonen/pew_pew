@@ -6,7 +6,7 @@ class Enemy extends Thing {
         this.directionToPlayer = p5.Vector.sub(this.pos, player.pos);
         this.vel.setHeading(this.directionToPlayer.heading() + HALF_PI);
         if (random() < .5) this.vel.mult(-1);
-        this.friction = 1 - wave * 0.0001 / timeStep;
+        this.friction = 1 - wave * 0.00001 / timeStep;
         this.maxhp = hp;
         this.distToPlayer = p5.Vector.dist(player.pos, this.pos);
         this.targeted = false;
@@ -90,7 +90,7 @@ class Enemy extends Thing {
             sss_y *= map(random(), 0, 1, height / 500, .7 * height / 500) * speed;
             sss_x += this.vel.x * 5;
             sss_y += this.vel.y * 5;
-            particles.push(new Particle(this.pos.x, this.pos.y, sss_x, sss_y, 40, 4, 1));
+            particles.push(new Particle(this.pos.x, this.pos.y, sss_x, sss_y, 40, 25, 1));
         }
     }
 }

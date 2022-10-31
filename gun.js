@@ -87,16 +87,14 @@ class Gun extends Thing {
         this.dir = Math.atan2(enemy.y, enemy.x);
     }
 
-    muzzleFlash(speed = 1) {
-        for (let i = 0; i < 15 * speed; i++) {
-            let sss_x = cos(this.dir) * random(1);
-            let sss_y = sin(this.dir) * random(1);
-            sss_x *= map(random(-1, 1), 0, 1, height / 500, .7 * height / 500) * speed;
-            sss_y *= map(random(-1, 1), 0, 1, height / 500, .7 * height / 500) * speed;
+    muzzleFlash(speed = 3) {
+        for (let i = 0; i < 15; i++) {
+            let sss_x = cos(this.dir) * 2 + random(-1, 1);
+            let sss_y = sin(this.dir) * 2 + random(-1, 1);
             particles.push(new Particle(
                 this.pos.x + cos(this.dir) * this.barrelLength,
                 this.pos.y + sin(this.dir) * this.barrelLength,
-                sss_x, sss_y, 3, 75, 10));
+                sss_x, sss_y, 14, 100, 10));
         }
     }
 }

@@ -16,6 +16,7 @@ class Particle {
         this.r = r_;
         this.brightness = brightness_;
         this.decaySpeed = decaySpeed_;
+        this.rotation = random(TWO_PI);
         //ns.tprint(this.pos.x + " " + this.pos.y);
     }
 
@@ -26,12 +27,13 @@ class Particle {
         //context.fillStyle = "rgba(" + color[0] + "," + color[1] + "," + color[2] + "," + a + ")";
         fill(this.color);
         noStroke();
-        imageMode(CENTER);
-        tint(255, 255, 255, 100);
+        //imageMode(CENTER);
+        //tint(255, 255, 255, this.lifee * this.brightness);
         push();
-        rotate(random(TWO_PI));
-        image(sparkImage, this.pos.x, this.pos.y, this.r - this.r / 4 * this.lifee, this.r - this.r / 4 * this.lifee);
-        // circle(this.pos.x, this.pos.y, this.r - this.r / 4 * this.lifee);
+        //translate(this.pos.x, this.pos.y);
+        //rotate(this.rotation);
+        //image(sparkImage, 0, 0, this.r - this.r / 4 * this.lifee, this.r - this.r / 4 * this.lifee);
+        circle(this.pos.x, this.pos.y, this.r - this.r / 4 * this.lifee);
         pop();
     }
 
